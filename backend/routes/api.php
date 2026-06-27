@@ -24,3 +24,15 @@ Route::post('/tickets/{ticketId}/comments', [CommentController::class, 'store'])
 // Dashboard Routes
 Route::get('/dashboard', [DashboardController::class, 'stats']);
 
+Route::get('/debug-env', function() {
+    return response()->json([
+        'db_connection' => env('DB_CONNECTION'),
+        'db_host' => env('DB_HOST'),
+        'db_database' => env('DB_DATABASE'),
+        'getenv_db_connection' => getenv('DB_CONNECTION'),
+        'getenv_db_host' => getenv('DB_HOST'),
+        'has_env_file' => file_exists(base_path('.env')),
+        'env_file_contents' => file_exists(base_path('.env')) ? file_get_contents(base_path('.env')) : null,
+    ]);
+});
+
