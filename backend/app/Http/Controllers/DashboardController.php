@@ -154,8 +154,7 @@ class DashboardController extends Controller
             ];
         }
 
-        // 4. Activity Logs (last 10 events)
-        $recentLogs = Ticket::where('organization_id', $orgId)
+        $recentLogs = Ticket::where('tickets.organization_id', $orgId)
             ->join('activity_logs', 'tickets.id', '=', 'activity_logs.ticket_id')
             ->join('users', 'activity_logs.user_id', '=', 'users.id')
             ->select('activity_logs.*', 'users.name as user_name', 'tickets.subject as ticket_subject')
