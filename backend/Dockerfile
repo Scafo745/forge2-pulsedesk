@@ -22,6 +22,9 @@ COPY . .
 # Copy environment example to default environment file
 RUN cp .env.example .env
 
+# Strip DB prefix env variables to ensure they resolve from the system environment
+RUN sed -i '/^DB_/d' .env
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
