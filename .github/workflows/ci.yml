@@ -1,0 +1,71 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, sprint-01-database ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, xml, ctype, iconv, mysql, sqlite, pdo_sqlite
+        coverage: none
+
+    - name: Copy .env
+      run: cp backend/.env.example backend/.env
+
+    - name: Configure SQLite env
+      run: |
+        sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' backend/.env
+        sed -i 's/DB_HOST=/#DB_HOST=/g' backend/.env
+        sed -i 's/DB_PORT=/#DB_PORT=/g' backend/.env
+        sed -i 's/DB_DATABASE=/#DB_DATABASE=/g' backend/.env
+        sed -i 's/DB_USERNAME=/#DB_USERNAME=/g' backend/.env
+        sed -i 's/DB_PASSWORD=/#DB_PASSWORD=/g' backend/.env
+
+    - name: Create database file
+      run: mkdir -p backend/database && touch backend/database/database.sqlite
+
+    - name: Install Laravel Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      working-directory: ./backend
+
+    - name: Generate Key
+      run: php artisan key:generate
+      working-directory: ./backend
+
+    - name: Run Migrations and Seeders
+      run: php artisan migrate:fresh --seed --force
+      working-directory: ./backend
+
+    - name: Execute Tests (PHPUnit)
+      run: vendor/bin/phpunit
+      working-directory: ./backend
+
+  react-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Frontend Dependencies
+      run: npm install
+      working-directory: ./frontend
+
+    - name: Build Frontend
+      run: npm run build
+      working-directory: ./frontend
