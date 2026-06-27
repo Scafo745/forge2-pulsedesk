@@ -7,13 +7,13 @@ This is a STARTER SKELETON -- structure only, zero features. Build the features 
 Laravel 11 . PHP 8.2 . MySQL 8 . Laravel Sanctum . React 19 . Vite . Tailwind
 
 ## EastRouter models I used
-- Hermes (planning / product owner): <e.g. deepseek/deepseek-v4-pro>
-- OpenClaw (coding): <e.g. z-ai/glm-5.1>
+- Hermes (planning / product owner): `deepseek/deepseek-v4-pro`
+- OpenClaw (coding): `z-ai/glm-5.1`
 
 ## How to run  (EXACT -- a judge will run these from a fresh clone)
-### Backend (Laravel + MySQL)
+### Backend (Laravel + SQLite / MySQL)
     cd backend
-    cp .env.example .env          # set DB_* for your MySQL
+    cp .env.example .env          # set DB_* for your MySQL (or defaults to SQLite)
     composer install
     php artisan key:generate
     php artisan migrate --seed
@@ -24,13 +24,13 @@ Laravel 11 . PHP 8.2 . MySQL 8 . Laravel Sanctum . React 19 . Vite . Tailwind
     npm install
     npm run dev                   # http://127.0.0.1:5173
 
-## Demo logins (from the seeder)  -- fill in after you build the seeder
-- admin@acme.test / password
-- agent@acme.test / password
-- customer@acme.test / password
+## Demo logins (from the seeder)
+- Admin: `admin@acme.com` / `password`
+- Agent: `agent1@acme.com` / `password`
+- Customer: `customer1@acme.com` / `password`
 
 ## Live URL
-<paste if deployed, else: "runs locally per the steps above">
+runs locally per the steps above
 
 ## Where my evidence lives (everything is in THIS repo -- no Drive, no video)
 - agents/        -- real Hermes + OpenClaw configs (secrets redacted)
@@ -38,3 +38,4 @@ Laravel 11 . PHP 8.2 . MySQL 8 . Laravel Sanctum . React 19 . Vite . Tailwind
 - sprints/       -- one doc per sprint
 - slack-export/  -- Slack export, or per-channel screenshots
 - evidence/screenshots/ -- app, agents-running, CI screenshots
+
