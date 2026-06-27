@@ -19,6 +19,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Check if already seeded to prevent duplication
+        if (Organization::where('domain', 'acme.com')->exists()) {
+            return;
+        }
+
         // 1. Create Organization (Tenant)
         $org = Organization::create([
             'name' => 'Acme Corp',
