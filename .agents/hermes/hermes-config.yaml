@@ -1,0 +1,10 @@
+# Hermes (orchestrator / product owner) -- DeepSeek config. Secrets REDACTED on purpose.
+provider: deepseek
+api_key: ${DEEPSEEK_API_KEY}      # set your DeepSeek API key in the environment
+model: deepseek/deepseek-v4-pro    # strong reasoning for planning
+memory:
+  enabled: true
+slack:
+  app_token: ${SLACK_APP_TOKEN}
+  bot_token: ${SLACK_BOT_TOKEN}
+  channels: ["#sprint-main", "#agent-coder", "#human-review"]
