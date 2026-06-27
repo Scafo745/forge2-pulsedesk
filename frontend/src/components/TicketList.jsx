@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { Search, Plus, Filter, User, HelpCircle, AlertTriangle } from 'lucide-react';
+=======
+import React, { useState, useEffect, useCallback } from 'react';
+import { Search, Plus, Filter, User } from 'lucide-react';
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 
 export default function TicketList({ user, onSelectTicket }) {
   const [tickets, setTickets] = useState([]);
@@ -19,9 +24,15 @@ export default function TicketList({ user, onSelectTicket }) {
   useEffect(() => {
     fetchTickets();
     fetchAgents();
+<<<<<<< HEAD
   }, [search, priority, assigneeId]);
 
   const fetchTickets = async () => {
+=======
+  }, [fetchTickets, fetchAgents]);
+
+  const fetchTickets = useCallback(async () => {
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
     try {
       setLoading(true);
       const params = new URLSearchParams();
@@ -41,9 +52,15 @@ export default function TicketList({ user, onSelectTicket }) {
     } finally {
       setLoading(false);
     }
+<<<<<<< HEAD
   };
 
   const fetchAgents = async () => {
+=======
+  }, [search, priority, assigneeId, user.id]);
+
+  const fetchAgents = useCallback(async () => {
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
     try {
       // In a real app we'd load agents endpoint, for now we can infer them or load dashboard stats
       const response = await fetch('/api/dashboard', {
@@ -58,7 +75,11 @@ export default function TicketList({ user, onSelectTicket }) {
     } catch (err) {
       console.error(err);
     }
+<<<<<<< HEAD
   };
+=======
+  }, [user.id]);
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 
   const handleCreateTicket = async (e) => {
     e.preventDefault();

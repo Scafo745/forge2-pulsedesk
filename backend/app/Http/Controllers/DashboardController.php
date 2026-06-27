@@ -8,6 +8,10 @@ use App\Models\Ticket;
 use App\Models\SlaPolicy;
 use App\Models\User;
 use App\Models\Comment;
+<<<<<<< HEAD
+=======
+use App\Models\ActivityLog;
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -154,9 +158,16 @@ class DashboardController extends Controller
             ];
         }
 
+<<<<<<< HEAD
         $recentLogs = Ticket::where('tickets.organization_id', $orgId)
             ->join('activity_logs', 'tickets.id', '=', 'activity_logs.ticket_id')
             ->join('users', 'activity_logs.user_id', '=', 'users.id')
+=======
+        // 4. Activity Logs (last 10 events)
+        $recentLogs = ActivityLog::join('tickets', 'activity_logs.ticket_id', '=', 'tickets.id')
+            ->join('users', 'activity_logs.user_id', '=', 'users.id')
+            ->where('tickets.organization_id', $orgId)
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
             ->select('activity_logs.*', 'users.name as user_name', 'tickets.subject as ticket_subject')
             ->orderBy('activity_logs.created_at', 'desc')
             ->limit(10)

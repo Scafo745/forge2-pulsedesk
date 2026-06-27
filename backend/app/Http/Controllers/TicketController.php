@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
+=======
+use Illuminate\Validation\Rule;
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\ActivityLog;
@@ -70,8 +74,19 @@ class TicketController extends Controller
             'subject' => 'required|string|max:255',
             'description' => 'required|string',
             'priority' => 'nullable|in:low,medium,high,urgent',
+<<<<<<< HEAD
             'requester_id' => 'nullable|exists:users,id',
             'assignee_id' => 'nullable|exists:users,id',
+=======
+            'requester_id' => [
+                'nullable',
+                Rule::exists('users', 'id')->where('organization_id', $user->organization_id),
+            ],
+            'assignee_id' => [
+                'nullable',
+                Rule::exists('users', 'id')->where('organization_id', $user->organization_id),
+            ],
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
         ]);
 
         $ticket = new Ticket();
@@ -158,7 +173,14 @@ class TicketController extends Controller
                 'description' => 'nullable|string',
                 'status' => 'nullable|in:open,pending,resolved,closed',
                 'priority' => 'nullable|in:low,medium,high,urgent',
+<<<<<<< HEAD
                 'assignee_id' => 'nullable|exists:users,id',
+=======
+                'assignee_id' => [
+                    'nullable',
+                    Rule::exists('users', 'id')->where('organization_id', $user->organization_id),
+                ],
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
             ]);
         }
 

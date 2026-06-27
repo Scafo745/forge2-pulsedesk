@@ -22,9 +22,12 @@ COPY . .
 # Copy environment example to default environment file
 RUN cp .env.example .env
 
+<<<<<<< HEAD
 # Strip DB prefix env variables to ensure they resolve from the system environment
 RUN sed -i '/^DB_/d' .env
 
+=======
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 

@@ -24,6 +24,7 @@ Route::post('/tickets/{ticketId}/comments', [CommentController::class, 'store'])
 // Dashboard Routes
 Route::get('/dashboard', [DashboardController::class, 'stats']);
 
+<<<<<<< HEAD
 Route::get('/debug-env', function() {
     return response()->json([
         'db_connection' => env('DB_CONNECTION'),
@@ -36,3 +37,5 @@ Route::get('/debug-env', function() {
     ]);
 });
 
+=======
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)

@@ -7,6 +7,7 @@ export default function Dashboard({ user, onSelectTicket, onViewTickets }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
+<<<<<<< HEAD
     fetchStats();
   }, []);
 
@@ -27,6 +28,28 @@ export default function Dashboard({ user, onSelectTicket, onViewTickets }) {
       setLoading(false);
     }
   };
+=======
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/dashboard', {
+          headers: {
+            'X-User-Id': user.id,
+          },
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to load dashboard.');
+        setStats(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, [user.id]);
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 
   if (loading) {
     return (

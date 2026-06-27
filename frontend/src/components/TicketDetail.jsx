@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, Send, Lock, User, Clock, AlertTriangle, CheckCircle, ShieldAlert } from 'lucide-react';
+=======
+import React, { useState, useEffect, useCallback } from 'react';
+import { ChevronLeft, Send, Lock, Clock, CheckCircle, ShieldAlert } from 'lucide-react';
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 
 export default function TicketDetail({ user, ticketId, onBack }) {
   const [ticket, setTicket] = useState(null);
@@ -15,7 +20,11 @@ export default function TicketDetail({ user, ticketId, onBack }) {
   useEffect(() => {
     fetchTicket();
     fetchAgents();
+<<<<<<< HEAD
   }, [ticketId]);
+=======
+  }, [fetchTicket, fetchAgents]);
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -24,7 +33,11 @@ export default function TicketDetail({ user, ticketId, onBack }) {
     return () => clearInterval(timer);
   }, []);
 
+<<<<<<< HEAD
   const fetchTicket = async () => {
+=======
+  const fetchTicket = useCallback(async () => {
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
     try {
       setLoading(true);
       const response = await fetch(`/api/tickets/${ticketId}`, {
@@ -39,9 +52,15 @@ export default function TicketDetail({ user, ticketId, onBack }) {
     } finally {
       setLoading(false);
     }
+<<<<<<< HEAD
   };
 
   const fetchAgents = async () => {
+=======
+  }, [ticketId, user.id]);
+
+  const fetchAgents = useCallback(async () => {
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
     try {
       const response = await fetch('/api/dashboard', {
         headers: {
@@ -55,7 +74,11 @@ export default function TicketDetail({ user, ticketId, onBack }) {
     } catch (err) {
       console.error(err);
     }
+<<<<<<< HEAD
   };
+=======
+  }, [user.id]);
+>>>>>>> 9f4eeb8 (Fix lint warnings, backend errors, and improve multi‑tenant validation)
 
   const handlePostComment = async (e) => {
     e.preventDefault();
